@@ -1,0 +1,6 @@
+{
+  "name": "Khatti Cafe",
+  "description": "Khatti Cafe (Purnima foods) in Sector-05 VIP Market, Rourkela. Rated 4.7 with 342 reviews. Enjoy Khatti Special Dosa, Navratan Chowmein, Club Sandwich, and cozy vibes.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
