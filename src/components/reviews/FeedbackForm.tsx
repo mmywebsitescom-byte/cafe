@@ -5,9 +5,11 @@ import { Rating } from '../ui/Rating';
 import { Button } from '../ui/Button';
 import { validateFeedbackForm, isValidEmail } from '../../utils/validation';
 import { useReviews } from '../../context/ReviewContext';
+import { useCafe } from '../../context/CafeContext';
 
 export const FeedbackForm: React.FC = () => {
   const { addReview } = useReviews();
+  const { cafeInfo } = useCafe();
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -65,7 +67,7 @@ export const FeedbackForm: React.FC = () => {
                 Thank you for sharing your experience.
               </h3>
               <p className="text-sm text-[#A99B8C] max-w-md mx-auto">
-                Your feedback helps Khatti Cafe & Purnima Foods continue serving memorable food and hospitality.
+                Your feedback helps {cafeInfo.name} {cafeInfo.businessName ? `& ${cafeInfo.businessName}` : ''} continue serving memorable food and hospitality.
               </p>
             </div>
             <button

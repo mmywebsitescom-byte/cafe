@@ -6,8 +6,11 @@ import { Button } from '../components/ui/Button';
 import { ScrollReveal } from '../components/common/ScrollReveal';
 import { ScrollingMarquee } from '../components/common/ScrollingMarquee';
 import { OwnerNoteSection } from '../components/sections/OwnerNoteSection';
+import { useCafe } from '../context/CafeContext';
 
 export const AboutPage: React.FC = () => {
+  const { cafeInfo } = useCafe();
+
   return (
     <PageContainer>
       {/* Header */}
@@ -21,11 +24,11 @@ export const AboutPage: React.FC = () => {
           </div>
 
           <h1 className="font-serif text-3xl sm:text-5xl font-bold tracking-tight text-[#F8F3EC]">
-            About Khatti Cafe
+            About {cafeInfo.name}
           </h1>
 
           <p className="font-serif italic text-base sm:text-lg text-[#D8BC82]">
-            A hospitality venture by Purnima Foods
+            A hospitality experience by {cafeInfo.businessName || cafeInfo.name}
           </p>
         </ScrollReveal>
       </div>
@@ -43,10 +46,10 @@ export const AboutPage: React.FC = () => {
               Born from a Love for Authentic Flavors and Cozy Spaces
             </h2>
             <p className="text-xs sm:text-sm text-[#E9DED0]/85 font-light leading-relaxed">
-              Khatti Cafe was established with a singular vision: to create a sanctuary where good food meets effortless warmth. Conceived under the banner of <strong>Purnima Foods</strong>, our journey began with the conviction that dining out should never feel commercialized or rushed.
+              {cafeInfo.name} was established with a singular vision: to create a sanctuary where good food meets effortless warmth. Conceived under the banner of <strong>{cafeInfo.businessName || cafeInfo.name}</strong>, our journey began with the conviction that dining out should never feel commercialized or rushed.
             </p>
             <p className="text-xs sm:text-sm text-[#E9DED0]/85 font-light leading-relaxed">
-              Instead, we built an atmosphere reminiscent of an unhurried Sunday afternoon — where aromatic spices simmer in the kitchen, artisanal coffees are brewed with patience, and tables are arranged to foster real connection.
+              Instead, we built an atmosphere reminiscent of an unhurried Sunday afternoon — where aromatic spices simmer in the kitchen, artisanal coffees and teas are brewed with patience, and tables are arranged to foster real connection.
             </p>
           </ScrollReveal>
 
@@ -54,7 +57,7 @@ export const AboutPage: React.FC = () => {
             <div className="relative rounded-sm overflow-hidden aspect-[4/3] border border-[#C6A15B]/30 shadow-2xl">
               <img
                 src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?q=80&w=1200&auto=format&fit=crop"
-                alt="Khatti Cafe barista hand-crafting espresso"
+                alt={`${cafeInfo.name} barista hand-crafting drinks`}
                 className="w-full h-full object-cover"
               />
             </div>
@@ -68,7 +71,7 @@ export const AboutPage: React.FC = () => {
               Our Guiding Principles
             </span>
             <h3 className="font-serif text-2xl sm:text-3xl font-bold text-[#F8F3EC]">
-              The Four Pillars of Purnima Foods
+              The Four Pillars of {cafeInfo.businessName || cafeInfo.name}
             </h3>
           </ScrollReveal>
 

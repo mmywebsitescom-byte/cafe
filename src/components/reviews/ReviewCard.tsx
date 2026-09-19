@@ -38,7 +38,7 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
           <h4 className="font-sans font-bold text-xs text-[#211A16] tracking-wide">
             {review.name}
           </h4>
-          <span className="text-[10px] text-[#211A16]/60">Khatti Café Patron</span>
+          <span className="text-[10px] text-[#211A16]/60">Verified Guest</span>
         </div>
         <span className="text-[10px] text-[#211A16]/50">{review.date}</span>
       </div>

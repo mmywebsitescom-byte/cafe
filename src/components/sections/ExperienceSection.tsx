@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { ArrowUpRight, Utensils, Coffee, HeartHandshake } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useCafe } from '../../context/CafeContext';
 
 export const ExperienceSection: React.FC = () => {
   const [activePanel, setActivePanel] = useState<number>(0);
+  const { cafeInfo } = useCafe();
 
   const panels = [
     {
@@ -11,7 +13,7 @@ export const ExperienceSection: React.FC = () => {
       num: '01',
       title: 'FOOD',
       subtitle: 'Artisanal & Handcrafted',
-      description: 'From sizzling gourmet burgers and hand-tossed pizzas to fragrant kulhad chai, every plate is crafted with uncompromised freshness and bold flavors.',
+      description: 'From sizzling gourmet delicacies and artisanal stone-crust specialties to comforting hot beverages, every plate is crafted with uncompromised freshness.',
       image: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=1200&auto=format&fit=crop',
       link: '/menu',
       linkText: 'Explore Menu',
@@ -33,7 +35,7 @@ export const ExperienceSection: React.FC = () => {
       num: '03',
       title: 'MOMENTS',
       subtitle: 'Hospitality & Connection',
-      description: 'Birthday celebrations, quiet morning routines, or late-night coffee laughs — Khatti Cafe is where memories gently take root.',
+      description: `Celebrations, quiet morning routines, or late-night coffee laughs — ${cafeInfo.name} is where memories gently take root.`,
       image: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200&auto=format&fit=crop',
       link: '/contact',
       linkText: 'Join Us',
@@ -53,7 +55,7 @@ export const ExperienceSection: React.FC = () => {
             More Than Just a Café.
           </h2>
           <p className="text-sm sm:text-base text-[#A99B8C] font-light">
-            Hover over each pillar to immerse yourself in the three pillars of Khatti hospitality.
+            Hover over each pillar to immerse yourself in the three pillars of {cafeInfo.name} hospitality.
           </p>
         </div>
 
@@ -121,3 +123,4 @@ export const ExperienceSection: React.FC = () => {
     </section>
   );
 };
+

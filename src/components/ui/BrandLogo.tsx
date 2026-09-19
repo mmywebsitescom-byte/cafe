@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useCafe } from '../../context/CafeContext';
 
 interface BrandLogoProps {
   theme?: 'dark' | 'light';
@@ -7,6 +8,8 @@ interface BrandLogoProps {
   size?: 'sm' | 'md' | 'lg';
   linkToHome?: boolean;
   className?: string;
+  name?: string;
+  subtitle?: string;
 }
 
 export const BrandLogo: React.FC<BrandLogoProps> = ({
@@ -15,8 +18,19 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
   size = 'md',
   linkToHome = true,
   className = '',
+  name,
+  subtitle,
 }) => {
+  const { cafeInfo } = useCafe();
   const isDarkBg = theme === 'dark';
+
+  const displayName = name || cafeInfo?.name || 'Artisan Cafe';
+  const displaySubtitle = subtitle !== undefined ? subtitle : (cafeInfo?.businessName || 'Culinary Sanctuary');
+
+  const words = displayName.trim().split(/\s+/);
+  const firstWord = words[0] || '';
+  const restWords = words.slice(1).join(' ');
+  const initialLetter = (firstWord[0] || 'C').toUpperCase();
 
   const monogramSizes = {
     sm: 'w-7 h-7 text-xs',
@@ -25,9 +39,9 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
   };
 
   const titleSizes = {
-    sm: 'text-sm tracking-[0.2em] leading-tight',
-    md: 'text-base sm:text-lg tracking-[0.25em] leading-none',
-    lg: 'text-2xl sm:text-3xl tracking-[0.3em] leading-none',
+    sm: 'text-sm tracking-[0.18em] leading-tight',
+    md: 'text-base sm:text-lg tracking-[0.2em] leading-none',
+    lg: 'text-2xl sm:text-3xl tracking-[0.25em] leading-none',
   };
 
   const subtitleSizes = {
@@ -38,7 +52,7 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
 
   const content = (
     <div className={`inline-flex items-center gap-2.5 sm:gap-3 select-none group ${className}`}>
-      {/* Monogram Circular Badge with 'K' */}
+      {/* Dynamic Monogram Circular Badge */}
       <div
         className={`shrink-0 ${monogramSizes[size]} rounded-full flex items-center justify-center font-serif font-bold transition-all duration-300 ${
           isDarkBg
@@ -46,25 +60,28 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
             : 'bg-[#17120F] text-[#D8BC82] border border-[#C6A15B]/40 group-hover:scale-105'
         }`}
       >
-        <span>K</span>
+        <span>{initialLetter}</span>
       </div>
 
       {/* Typography Stack */}
       <div className="flex flex-col justify-center">
         <div
-          className={`font-serif font-bold transition-colors ${titleSizes[size]} ${
+          className={`font-serif uppercase font-bold transition-colors ${titleSizes[size]} ${
             isDarkBg ? 'text-[#F8F3EC] group-hover:text-[#D8BC82]' : 'text-[#211A16]'
           }`}
         >
-          KHATTI <span className="text-[#C6A15B] font-light">CAFÉ</span>
+          {firstWord}{' '}
+          {restWords ? (
+            <span className="text-[#C6A15B] font-light">{restWords}</span>
+          ) : null}
         </div>
-        {showSubtitle && (
+        {showSubtitle && displaySubtitle && (
           <span
-            className={`font-sans uppercase font-medium mt-1 transition-opacity ${subtitleSizes[size]} ${
+            className={`font-sans uppercase font-medium mt-1 transition-opacity truncate max-w-[200px] sm:max-w-xs ${subtitleSizes[size]} ${
               isDarkBg ? 'text-[#A99B8C]' : 'text-[#211A16]/60'
             }`}
           >
-            Purnima Foods
+            {displaySubtitle}
           </span>
         )}
       </div>
@@ -81,3 +98,4 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
 
   return content;
 };
+

@@ -3,8 +3,16 @@ import { motion } from 'motion/react';
 import { Sparkles, ArrowDown, Utensils, Coffee, Compass, Clock } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { Link } from 'react-router-dom';
+import { useCafe } from '../../context/CafeContext';
+import { useMenu } from '../../context/MenuContext';
 
 export const HeroSection: React.FC = () => {
+  const { cafeInfo } = useCafe();
+  const { menuItems } = useMenu();
+
+  const highlight1 = menuItems[0]?.name || 'Signature Dish';
+  const highlight2 = menuItems[1]?.name || 'Handcrafted Beverage';
+
   return (
     <section className="relative min-h-[92vh] lg:min-h-screen flex items-center justify-center pt-28 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
       {/* Background Ambience & Lighting */}
@@ -30,15 +38,13 @@ export const HeroSection: React.FC = () => {
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#C6A15B]/15 border border-[#C6A15B]/35 text-[#D8BC82]">
               <Sparkles className="w-3.5 h-3.5 text-[#C6A15B]" />
               <span className="text-[11px] uppercase tracking-[0.25em] font-semibold">
-                KHATTI CAFE • PURNIMA FOODS
+                {cafeInfo.name} • {cafeInfo.businessName}
               </span>
             </div>
 
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#241B16] border border-[#C6A15B]/30 text-xs text-[#F8F3EC]">
               <Clock className="w-3.5 h-3.5 text-[#C6A15B]" />
-              <span className="text-[#D8BC82] font-semibold">Open: 10:00 AM</span>
-              <span className="text-white/20">•</span>
-              <span className="text-[#D8BC82] font-semibold">Close: 10:30 PM</span>
+              <span className="text-[#D8BC82] font-semibold">{cafeInfo.openingHours}</span>
               <span className="inline-flex items-center gap-1 text-[10px] text-emerald-400 font-medium pl-1">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                 Open Everyday
@@ -46,10 +52,10 @@ export const HeroSection: React.FC = () => {
             </div>
 
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/40 border border-white/10 text-xs text-[#F8F3EC]">
-              <span className="text-amber-400 font-bold">★ 4.7</span>
-              <span className="text-[#A99B8C]">(342 Reviews)</span>
+              <span className="text-amber-400 font-bold">★ {cafeInfo.rating || 4.8}</span>
+              <span className="text-[#A99B8C]">({cafeInfo.reviewCount || 250}+ Reviews)</span>
               <span className="text-white/20">•</span>
-              <span className="text-[#D8BC82] font-medium">₹1–200</span>
+              <span className="text-[#D8BC82] font-medium">{cafeInfo.priceRange || '₹100–300'}</span>
             </div>
           </motion.div>
 
@@ -71,7 +77,7 @@ export const HeroSection: React.FC = () => {
             transition={{ duration: 0.7, delay: 0.3 }}
             className="text-[#E9DED0]/85 text-base sm:text-lg lg:text-xl font-light leading-relaxed max-w-xl"
           >
-            Discover delicious food, refreshing drinks and a warm café experience crafted for good conversations and memorable moments.
+            Welcome to {cafeInfo.name}. Discover delicious food, handcrafted artisanal drinks, and a warm café experience crafted for good conversations and memorable moments.
           </motion.p>
 
           {/* Buttons */}
@@ -88,12 +94,12 @@ export const HeroSection: React.FC = () => {
             </Link>
             <Link to="/contact">
               <Button variant="secondary" size="lg" className="tracking-widest uppercase text-xs font-medium">
-                Visit Khatti
+                Visit {cafeInfo.name}
               </Button>
             </Link>
           </motion.div>
 
-          {/* Micro stats / Trust indicator featuring Open & Close time */}
+          {/* Micro stats / Trust indicator */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -101,23 +107,18 @@ export const HeroSection: React.FC = () => {
             className="pt-6 flex flex-wrap items-center gap-5 sm:gap-7 text-xs text-[#A99B8C] border-t border-white/[0.08]"
           >
             <div>
-              <span className="block text-lg font-serif font-bold text-[#F8F3EC]">4.7 ★</span>
-              <span>342 Google Reviews</span>
+              <span className="block text-lg font-serif font-bold text-[#F8F3EC]">{cafeInfo.rating || 4.8} ★</span>
+              <span>{cafeInfo.reviewCount || 250}+ Google Reviews</span>
             </div>
             <div className="w-[1px] h-8 bg-white/[0.1]" />
             <div>
-              <span className="block text-lg font-serif font-bold text-[#D8BC82]">10:00 AM</span>
-              <span className="text-[#F8F3EC]/90 font-medium">Open Time</span>
+              <span className="block text-lg font-serif font-bold text-[#D8BC82]">{cafeInfo.openingHours.split('·')[0]?.trim() || 'Open Daily'}</span>
+              <span className="text-[#F8F3EC]/90 font-medium">Hours</span>
             </div>
             <div className="w-[1px] h-8 bg-white/[0.1]" />
             <div>
-              <span className="block text-lg font-serif font-bold text-[#D8BC82]">10:30 PM</span>
-              <span className="text-[#F8F3EC]/90 font-medium">Close Time</span>
-            </div>
-            <div className="w-[1px] h-8 bg-white/[0.1]" />
-            <div>
-              <span className="block text-lg font-serif font-bold text-[#F8F3EC]">₹1–200</span>
-              <span>Pocket Friendly</span>
+              <span className="block text-lg font-serif font-bold text-[#F8F3EC]">{cafeInfo.priceRange || 'Pocket Friendly'}</span>
+              <span>Average Price</span>
             </div>
           </motion.div>
         </div>
@@ -130,11 +131,11 @@ export const HeroSection: React.FC = () => {
             transition={{ duration: 1, ease: 'easeOut' }}
             className="relative w-full max-w-[290px] sm:max-w-[340px] lg:max-w-[360px] mx-auto"
           >
-            {/* Main Image Frame with Gold Haired Border - Compacted Size */}
+            {/* Main Image Frame with Gold Haired Border */}
             <div className="relative rounded-sm overflow-hidden aspect-[4/4.5] border border-[#C6A15B]/30 shadow-2xl shadow-black/80">
               <img
                 src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?q=80&w=1200&auto=format&fit=crop"
-                alt="Khatti Cafe artisanal coffee atmosphere"
+                alt={`${cafeInfo.name} artisanal atmosphere`}
                 className="w-full h-full object-cover brightness-[0.9] hover:scale-105 transition-transform duration-700"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#17120F] via-transparent to-transparent opacity-60" />
@@ -149,8 +150,8 @@ export const HeroSection: React.FC = () => {
               <div className="flex items-center justify-between gap-1.5 mb-2">
                 <div className="flex items-center gap-1.5">
                   <span className="w-2 h-2 rounded-full bg-[#C6A15B] animate-ping" />
-                  <span className="text-[10px] uppercase font-bold tracking-[0.2em] text-[#D8BC82]">
-                    Sector-05 VIP Market
+                  <span className="text-[10px] uppercase font-bold tracking-[0.2em] text-[#D8BC82] truncate max-w-[180px]">
+                    {cafeInfo.landmark || cafeInfo.name}
                   </span>
                 </div>
               </div>
@@ -158,21 +159,21 @@ export const HeroSection: React.FC = () => {
               {/* Timing badge in floating card */}
               <div className="flex items-center gap-1.5 text-[11px] font-medium text-[#D8BC82] bg-[#17120F]/60 px-2 py-1 rounded-xs border border-white/5 mb-2">
                 <Clock className="w-3 h-3 text-[#C6A15B] shrink-0" />
-                <span>10:00 AM – 10:30 PM (Daily)</span>
+                <span className="truncate">{cafeInfo.openingHours}</span>
               </div>
 
               <ul className="space-y-1 text-[11px] sm:text-xs text-[#F8F3EC]">
                 <li className="flex items-center gap-1.5">
                   <Utensils className="w-3.5 h-3.5 text-[#C6A15B] shrink-0" />
-                  <span className="truncate">Khatti Special Dosa</span>
+                  <span className="truncate">{highlight1}</span>
                 </li>
                 <li className="flex items-center gap-1.5">
                   <Coffee className="w-3.5 h-3.5 text-[#C6A15B] shrink-0" />
-                  <span className="truncate">Navratan Chowmein</span>
+                  <span className="truncate">{highlight2}</span>
                 </li>
                 <li className="flex items-center gap-1.5">
                   <Compass className="w-3.5 h-3.5 text-[#C6A15B] shrink-0" />
-                  <span className="truncate">Dine-in • Takeaway</span>
+                  <span className="truncate">{cafeInfo.services ? cafeInfo.services.slice(0, 2).join(' • ') : 'Dine-in • Takeaway'}</span>
                 </li>
               </ul>
             </motion.div>
@@ -197,3 +198,4 @@ export const HeroSection: React.FC = () => {
     </section>
   );
 };
+

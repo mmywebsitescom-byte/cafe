@@ -3,12 +3,14 @@ import { NavLink, useLocation, Link } from 'react-router-dom';
 import { Heart, Menu as MenuIcon, X, ArrowUpRight } from 'lucide-react';
 import { BrandLogo } from '../ui/BrandLogo';
 import { useFavorites } from '../../context/FavoritesContext';
+import { useCafe } from '../../context/CafeContext';
 import { motion, AnimatePresence } from 'motion/react';
 
 export const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { favoritesCount, setIsDrawerOpen } = useFavorites();
+  const { cafeInfo } = useCafe();
   const location = useLocation();
 
   useEffect(() => {
@@ -132,7 +134,7 @@ export const Navbar: React.FC = () => {
           >
             <div className="space-y-6">
               <p className="text-xs uppercase tracking-[0.25em] text-[#C6A15B] font-semibold">
-                Explore Khatti Cafe
+                Explore {cafeInfo.name}
               </p>
               <nav className="flex flex-col space-y-4">
                 {navLinks.map((link) => (
@@ -167,7 +169,7 @@ export const Navbar: React.FC = () => {
                 Explore Full Menu
               </Link>
               <div className="text-center text-xs text-[#A99B8C]">
-                Purnima Foods • Crafted with Warmth
+                {cafeInfo.businessName || cafeInfo.name} • Crafted with Warmth
               </div>
             </div>
           </motion.div>

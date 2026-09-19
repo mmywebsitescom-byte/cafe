@@ -71,7 +71,7 @@ export const ContinuousReviewCarousel: React.FC<ContinuousReviewCarouselProps> =
                 <h4 className="font-sans font-bold text-xs text-[#211A16] tracking-wide">
                   {rev.name}
                 </h4>
-                <span className="text-[10px] text-[#211A16]/65">Khatti Café Patron</span>
+                <span className="text-[10px] text-[#211A16]/65">Verified Guest</span>
               </div>
               <span className="text-[10px] text-[#211A16]/50">{rev.date}</span>
             </div>

@@ -61,7 +61,7 @@ export const ContactPage: React.FC = () => {
                   Thank You for Reaching Out
                 </h4>
                 <p className="text-xs text-[#E9DED0]/85">
-                  Your inquiry has been received by the Khatti Cafe Concierge team. We will contact you shortly!
+                  Your inquiry has been received by the {cafeInfo.name} Concierge team. We will contact you shortly!
                 </p>
                 <Button
                   size="sm"

@@ -4,6 +4,7 @@ import { Footer } from './Footer';
 import { FavoritesDrawer } from '../favorites/FavoritesDrawer';
 import { ScrollProgressBar } from '../common/ScrollProgressBar';
 import { ScrollToTopButton } from '../common/ScrollToTopButton';
+import { DemoCafeSwitcher } from '../common/DemoCafeSwitcher';
 
 interface PageContainerProps {
   children: React.ReactNode;
@@ -19,6 +20,7 @@ export const PageContainer: React.FC<PageContainerProps> = ({ children }) => {
       <Footer />
       <FavoritesDrawer />
       <ScrollToTopButton />
+      <DemoCafeSwitcher />
     </div>
   );
 };

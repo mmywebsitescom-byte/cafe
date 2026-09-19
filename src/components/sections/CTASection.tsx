@@ -2,8 +2,11 @@ import React from 'react';
 import { ArrowRight, Coffee } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { Link } from 'react-router-dom';
+import { useCafe } from '../../context/CafeContext';
 
 export const CTASection: React.FC = () => {
+  const { cafeInfo } = useCafe();
+
   return (
     <section className="py-20 bg-gradient-to-b from-[#17120F] to-[#120E0C] text-center relative overflow-hidden border-t border-white/[0.06]">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 relative z-10">
@@ -16,7 +19,7 @@ export const CTASection: React.FC = () => {
         </h2>
 
         <p className="text-sm sm:text-base text-[#A99B8C] font-light max-w-xl mx-auto leading-relaxed">
-          Step into our warm space, taste our freshly baked creations, and discover why Khatti Cafe is more than a café — it’s a feeling of home.
+          Step into our warm space, taste our freshly prepared creations, and discover why {cafeInfo.name} is more than a café — it’s a feeling of home.
         </p>
 
         <div className="pt-4 flex flex-wrap items-center justify-center gap-4">
@@ -35,3 +38,4 @@ export const CTASection: React.FC = () => {
     </section>
   );
 };
+

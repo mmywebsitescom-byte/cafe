@@ -24,15 +24,15 @@ export const LocationSection: React.FC = () => {
     if (navigator.share) {
       try {
         await navigator.share({
-          title: 'Khatti Cafe (Purnima foods)',
-          text: 'Visit Khatti Cafe in Sector-05 VIP Market, Rourkela. Great food & cozy vibes!',
+          title: `${cafeInfo.name} (${cafeInfo.businessName})`,
+          text: `Visit ${cafeInfo.name} at ${cafeInfo.address}. Great food & cozy vibes!`,
           url: window.location.href,
         });
       } catch {
         // ignore share cancellation
       }
     } else {
-      navigator.clipboard.writeText(`${cafeInfo.name} (Purnima foods) - ${cafeInfo.address}. Phone: ${cafeInfo.phone}`);
+      navigator.clipboard.writeText(`${cafeInfo.name} (${cafeInfo.businessName}) - ${cafeInfo.address}. Phone: ${cafeInfo.phone}`);
       setCopied(true);
       setTimeout(() => setCopied(false), 2500);
     }
@@ -48,16 +48,16 @@ export const LocationSection: React.FC = () => {
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#C6A15B]/15 border border-[#C6A15B]/30 text-[#D8BC82]">
                 <Star className="w-3.5 h-3.5 fill-[#C6A15B] text-[#C6A15B]" />
                 <span className="text-[11px] uppercase tracking-[0.2em] font-semibold">
-                  4.7 ★ (342 Reviews) • ₹1–200 / person
+                  {cafeInfo.rating || 4.8} ★ ({cafeInfo.reviewCount || 250}+ Reviews) • {cafeInfo.priceRange || '₹100–300'} / person
                 </span>
               </div>
 
               <h2 className="font-serif text-2xl sm:text-4xl font-bold text-[#F8F3EC]">
-                {cafeInfo.name} <span className="font-normal text-[#D8BC82] text-xl sm:text-2xl">({cafeInfo.businessName})</span>
+                {cafeInfo.name} {cafeInfo.businessName ? <span className="font-normal text-[#D8BC82] text-xl sm:text-2xl">({cafeInfo.businessName})</span> : null}
               </h2>
 
               <p className="text-xs sm:text-sm text-[#A99B8C] font-light leading-relaxed">
-                Located in the heart of Sector-05 VIP Market in Rourkela, right in front of the Public Health Office. Enjoy a warm, welcoming ambiance with fast service and mouth-watering bites.
+                Located at {cafeInfo.address}. Enjoy a warm, welcoming ambiance with attentive service and memorable culinary creations.
               </p>
             </div>
 
@@ -192,8 +192,8 @@ export const LocationSection: React.FC = () => {
             <div className="relative w-full aspect-[4/3] rounded-sm overflow-hidden border border-[#C6A15B]/30 shadow-xl bg-[#241B16] flex flex-col">
               {/* Google Maps Embed */}
               <iframe
-                title="Khatti Cafe Sector 5 VIP Market Rourkela"
-                src={cafeInfo.googleMapsEmbedUrl}
+                title={`${cafeInfo.name} Location Map`}
+                src={cafeInfo.googleMapsEmbedUrl || `https://maps.google.com/maps?q=${encodeURIComponent(cafeInfo.name + ' ' + cafeInfo.address)}&t=&z=16&ie=UTF8&iwloc=&output=embed`}
                 className="w-full h-full border-0 grayscale contrast-125 opacity-85 hover:opacity-100 hover:grayscale-0 transition-all duration-500"
                 allowFullScreen
                 loading="lazy"
@@ -205,7 +205,7 @@ export const LocationSection: React.FC = () => {
                 <div className="flex items-center gap-1.5 min-w-0">
                   <MapPin className="w-3.5 h-3.5 text-[#C6A15B] shrink-0" />
                   <span className="text-[#A99B8C] truncate max-w-[180px] sm:max-w-xs text-[11px]">
-                    Sector 05, VIP Market, Rourkela
+                    {cafeInfo.landmark || cafeInfo.address}
                   </span>
                 </div>
                 <button
@@ -226,7 +226,7 @@ export const LocationSection: React.FC = () => {
                 <span className="text-emerald-400 font-medium">Open Now</span>
               </div>
               <p className="text-[#A99B8C] text-[11px] leading-relaxed">
-                Infront of Public Health Office, VIP Market, Sector-05. Ample parking, both indoor cozy seating & takeaway counter available.
+                {cafeInfo.landmark ? `${cafeInfo.landmark}. ` : ''}{cafeInfo.address}. Ample parking, ambient indoor cozy seating & takeaway counter available.
               </p>
             </div>
           </div>

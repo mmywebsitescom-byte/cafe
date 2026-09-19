@@ -24,7 +24,7 @@ export const Footer: React.FC = () => {
               <span className="text-[11px] uppercase tracking-[0.2em] text-[#C6A15B] font-semibold block mb-1">
                 A Venture Of
               </span>
-              <span className="text-sm font-serif text-[#F8F3EC]">Purnima Foods</span>
+              <span className="text-sm font-serif text-[#F8F3EC]">{cafeInfo.businessName || 'Artisan Foods'}</span>
             </div>
           </div>
 
@@ -138,7 +138,7 @@ export const Footer: React.FC = () => {
 
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-white/[0.06] flex flex-col sm:flex-row items-center justify-between text-xs text-[#A99B8C] gap-4">
-          <p>© 2026 Khatti Cafe – Purnima Foods. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} {cafeInfo.name} – {cafeInfo.businessName}. All rights reserved.</p>
           <div className="flex items-center gap-6">
             <Link to="/about" className="hover:text-[#D8BC82]">Privacy Policy</Link>
             <Link to="/about" className="hover:text-[#D8BC82]">Terms of Service</Link>

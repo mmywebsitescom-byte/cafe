@@ -1,5 +1,6 @@
 import React from 'react';
 import { useReviews } from '../../context/ReviewContext';
+import { useCafe } from '../../context/CafeContext';
 import { ContinuousReviewCarousel } from './ContinuousReviewCarousel';
 import { FeedbackForm } from './FeedbackForm';
 import { ReviewSkeleton } from '../ui/Loading';
@@ -7,6 +8,7 @@ import { Star } from 'lucide-react';
 
 export const ReviewSection: React.FC = () => {
   const { approvedReviews, loading } = useReviews();
+  const { cafeInfo } = useCafe();
 
   return (
     <section className="py-20 lg:py-28 relative overflow-hidden bg-[#1D1612]">
@@ -17,14 +19,14 @@ export const ReviewSection: React.FC = () => {
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#C6A15B]/15 border border-[#C6A15B]/30 text-[#D8BC82] text-xs">
             <Star className="w-3.5 h-3.5 fill-[#C6A15B] text-[#C6A15B]" />
             <span className="font-semibold tracking-wider uppercase text-[11px]">
-              4.7 ★ • 342 Verified Google Reviews
+              {cafeInfo.rating || 4.8} ★ • {cafeInfo.reviewCount || 250}+ Verified Google Reviews
             </span>
           </div>
           <h2 className="font-serif text-3xl sm:text-5xl font-bold text-[#F8F3EC]">
             Loved by Good-Food People.
           </h2>
           <p className="text-sm sm:text-base text-[#A99B8C] font-light">
-            Read stories from friends, families, and solo travelers who found their favorite bites and cozy nook at Khatti Cafe.
+            Read stories from friends, families, and travelers who found their favorite bites and cozy nook at {cafeInfo.name}.
           </p>
         </div>
       </div>

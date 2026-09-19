@@ -2,12 +2,14 @@ import React from 'react';
 import { PageContainer } from '../components/layout/PageContainer';
 import { GalleryGrid } from '../components/gallery/GalleryGrid';
 import { useGallery } from '../context/GalleryContext';
+import { useCafe } from '../context/CafeContext';
 import { Camera } from 'lucide-react';
 import { ScrollReveal } from '../components/common/ScrollReveal';
 import { ScrollingMarquee } from '../components/common/ScrollingMarquee';
 
 export const GalleryPage: React.FC = () => {
   const { galleryImages } = useGallery();
+  const { cafeInfo } = useCafe();
 
   return (
     <PageContainer>
@@ -24,7 +26,7 @@ export const GalleryPage: React.FC = () => {
           </div>
 
           <h1 className="font-serif text-3xl sm:text-5xl font-bold tracking-tight text-[#F8F3EC]">
-            Café Gallery
+            {cafeInfo.name} Gallery
           </h1>
 
           <p className="font-serif italic text-base sm:text-lg text-[#D8BC82]">
@@ -32,7 +34,7 @@ export const GalleryPage: React.FC = () => {
           </p>
 
           <p className="text-xs sm:text-sm text-[#A99B8C] font-light max-w-xl mx-auto leading-relaxed">
-            Take a visual tour through our ambient corners, sizzling plates, and the comforting spirit that fills Khatti Cafe every day.
+            Take a visual tour through our ambient corners, sizzling plates, and the comforting spirit that fills {cafeInfo.name} every day.
           </p>
         </ScrollReveal>
       </div>

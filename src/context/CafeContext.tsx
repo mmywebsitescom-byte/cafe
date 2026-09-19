@@ -21,6 +21,12 @@ export const CafeProvider: React.FC<{ children: React.ReactNode }> = ({ children
     refreshCafeInfo();
   }, [refreshCafeInfo]);
 
+  useEffect(() => {
+    if (cafeInfo?.name) {
+      document.title = `${cafeInfo.name}${cafeInfo.businessName ? ` – ${cafeInfo.businessName}` : ''} | Menu & Café Experience`;
+    }
+  }, [cafeInfo]);
+
   const updateCafeInfo = (info: CafeInfo) => {
     cafeService.updateCafeInfo(info);
     setCafeInfo(info);

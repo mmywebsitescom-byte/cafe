@@ -32,18 +32,18 @@ export const OwnerNoteSection: React.FC = () => {
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#C6A15B]/15 border border-[#C6A15B]/35 text-[#D8BC82]">
               <Sparkles className="w-3.5 h-3.5 text-[#C6A15B]" />
               <span className="text-[11px] uppercase tracking-[0.25em] font-semibold">
-                From the Owner • May 6, 2026
+                From the Owner • {cafeInfo.ownerNote?.date || 'Special Feature'}
               </span>
             </div>
             <h2 className="font-serif text-2xl sm:text-4xl font-bold text-[#F8F3EC] leading-tight">
-              &ldquo;The Khatti Special Dosa is a Must-Try!&rdquo; 🥞
+              {cafeInfo.ownerNote?.tagline || `“A Memorable Dining Experience at ${cafeInfo.name}” 🥞`}
             </h2>
           </div>
 
           <div className="flex items-center gap-2 text-xs text-[#D8BC82]">
             <MapPin className="w-4 h-4 text-[#C6A15B] shrink-0" />
             <span className="font-light">
-              Sec 05 VIP Market (Infront of Public Health Office)
+              {cafeInfo.landmark || cafeInfo.address}
             </span>
           </div>
         </div>
@@ -54,27 +54,27 @@ export const OwnerNoteSection: React.FC = () => {
           
           <div className="space-y-4 max-w-4xl">
             <p className="text-sm sm:text-base text-[#F8F3EC] font-light leading-relaxed">
-              &ldquo;<strong>The Khatti special Dosa is a must-try!</strong> That’s what my friends keep telling me after our latest visit. Khatti Cafe’s cozy vibe makes every bite even better. Their Dosa is so crispy and packed with flavors, perfect when you&apos;re craving something quick and tasty. Plus, their <strong>Navratan Chowmein</strong> and <strong>Club Sandwich</strong> are real hits! If you’re nearby Sec 05 VIP Market, this is your new go-to spot for a delicious treat. Come see why everyone’s talking about Khatti Cafe — you won’t regret it! ✨ Drop by and elevate your foodie game today!&rdquo;
+              &ldquo;{cafeInfo.ownerNote?.text || `Every dish at ${cafeInfo.name} is prepared with love and the finest ingredients. Our cozy atmosphere makes every visit unforgettable. Come see why our guests love dining here!`}&rdquo;
             </p>
 
             <div className="flex flex-wrap items-center justify-between gap-4 pt-3 border-t border-white/[0.08] text-xs">
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 rounded-full bg-[#C6A15B] text-[#17120F] flex items-center justify-center font-serif font-bold text-sm">
-                  PF
+                  {cafeInfo.name.charAt(0).toUpperCase()}
                 </div>
                 <div>
-                  <span className="font-medium text-[#F8F3EC] block">Purnima Foods Management</span>
-                  <span className="text-[11px] text-[#A99B8C]">Khatti Cafe • Sector 05, Rourkela</span>
+                  <span className="font-medium text-[#F8F3EC] block">{cafeInfo.businessName || cafeInfo.name} Management</span>
+                  <span className="text-[11px] text-[#A99B8C]">{cafeInfo.name} • {cafeInfo.landmark || cafeInfo.address.split(',')[0]}</span>
                 </div>
               </div>
 
               <div className="flex items-center gap-3 text-[#D8BC82]">
                 <span className="inline-flex items-center gap-1 font-semibold">
                   <Star className="w-3.5 h-3.5 fill-[#C6A15B] text-[#C6A15B]" />
-                  4.7 Stars (342 Reviews)
+                  {cafeInfo.rating || 4.8} Stars ({cafeInfo.reviewCount || 300}+ Reviews)
                 </span>
                 <span className="text-white/20">•</span>
-                <span>₹1–200 / person</span>
+                <span>{cafeInfo.priceRange || '₹100–300'} / person</span>
               </div>
             </div>
           </div>

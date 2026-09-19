@@ -3,8 +3,11 @@ import { PageContainer } from '../components/layout/PageContainer';
 import { MenuSection } from '../components/menu/MenuSection';
 import { Utensils } from 'lucide-react';
 import { ScrollReveal } from '../components/common/ScrollReveal';
+import { useCafe } from '../context/CafeContext';
 
 export const MenuPage: React.FC = () => {
+  const { cafeInfo } = useCafe();
+
   return (
     <PageContainer>
       {/* Page Header */}
@@ -15,7 +18,7 @@ export const MenuPage: React.FC = () => {
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#C6A15B]/10 border border-[#C6A15B]/30 text-[#D8BC82]">
             <Utensils className="w-3.5 h-3.5 text-[#C6A15B]" />
             <span className="text-[11px] uppercase tracking-[0.25em] font-semibold">
-              Khatti Culinary Showcase
+              {cafeInfo.name} Culinary Showcase
             </span>
           </div>
 
@@ -28,7 +31,7 @@ export const MenuPage: React.FC = () => {
           </p>
 
           <p className="text-xs sm:text-sm text-[#A99B8C] font-light max-w-xl mx-auto leading-relaxed">
-            Freshly prepared dishes, handcrafted stone-crust pizzas, sizzling starters, and artisanal beverages crafted with care by Purnima Foods.
+            Freshly prepared dishes, specialty beverages, gourmet starters, and curated delights crafted with passion by {cafeInfo.businessName || cafeInfo.name}.
           </p>
         </ScrollReveal>
       </div>

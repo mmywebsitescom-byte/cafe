@@ -3,8 +3,11 @@ import { motion } from 'motion/react';
 import { Check } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { Link } from 'react-router-dom';
+import { useCafe } from '../../context/CafeContext';
 
 export const AboutSection: React.FC = () => {
+  const { cafeInfo } = useCafe();
+
   const features = [
     {
       num: '01',
@@ -19,7 +22,7 @@ export const AboutSection: React.FC = () => {
     {
       num: '03',
       title: 'Made for Good Moments',
-      description: 'Hospitality rooted in Indian warmth where every guest is welcomed like family.',
+      description: 'Hospitality rooted in genuine warmth where every guest is welcomed like family.',
     },
   ];
 
@@ -32,7 +35,7 @@ export const AboutSection: React.FC = () => {
             <div className="relative rounded-sm overflow-hidden aspect-[3/4] border border-[#C6A15B]/30 shadow-2xl shadow-black/80 group">
               <img
                 src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=1200&auto=format&fit=crop"
-                alt="Khatti Cafe interior and coffee counter"
+                alt={`${cafeInfo.name} interior and coffee counter`}
                 className="w-full h-full object-cover brightness-95 group-hover:scale-105 transition-transform duration-700"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#17120F]/90 via-transparent to-transparent" />
@@ -43,7 +46,7 @@ export const AboutSection: React.FC = () => {
                   &ldquo;A haven where time slows down and genuine conversation takes center stage.&rdquo;
                 </p>
                 <span className="text-[10px] uppercase tracking-widest text-[#C6A15B] block mt-1">
-                  Purnima Foods Philosophy
+                  {cafeInfo.businessName || cafeInfo.name} Philosophy
                 </span>
               </div>
             </div>
@@ -56,7 +59,7 @@ export const AboutSection: React.FC = () => {
           <div className="lg:col-span-7 space-y-8">
             <div className="space-y-4">
               <div className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.3em] font-semibold text-[#C6A15B]">
-                <span>The Khatti Experience</span>
+                <span>The {cafeInfo.name} Experience</span>
               </div>
               <h2 className="font-serif text-3xl sm:text-5xl font-bold text-[#F8F3EC] leading-[1.15]">
                 Good Food. <br />
@@ -64,8 +67,8 @@ export const AboutSection: React.FC = () => {
                 <span className="italic font-normal text-[#D8BC82]">Memorable Moments.</span>
               </h2>
               <p className="text-sm sm:text-base text-[#E9DED0]/85 font-light leading-relaxed max-w-xl pt-2">
-                Khatti Cafe – Purnima Foods is designed around the simple joy of enjoying good food in a welcoming atmosphere.
-                From artisanal teas and gourmet coffees to handcrafted pizzas and street-inspired delights, every dish reflects our deep passion for culinary craftsmanship.
+                {cafeInfo.name} {cafeInfo.businessName ? `– ${cafeInfo.businessName}` : ''} is designed around the simple joy of enjoying good food in a welcoming atmosphere.
+                From artisanal teas and gourmet coffees to handcrafted dishes and delicacies, every recipe reflects our deep passion for culinary craftsmanship.
               </p>
             </div>
 
@@ -107,3 +110,4 @@ export const AboutSection: React.FC = () => {
     </section>
   );
 };
+

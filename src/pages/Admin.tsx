@@ -31,6 +31,7 @@ import { useFavorites } from '../context/FavoritesContext';
 import { formatPrice } from '../utils/formatPrice';
 import { Food } from '../types/food';
 import { MENU_CATEGORIES } from '../components/menu/CategoryTabs';
+import { DEMO_CAFE_PRESETS } from '../data/cafe';
 
 type AdminTab = 'dashboard' | 'menu' | 'reviews' | 'gallery' | 'offers' | 'cafe';
 
@@ -238,7 +239,7 @@ export const AdminPage: React.FC = () => {
                 Café Management Overview
               </h1>
               <p className="text-xs sm:text-sm text-[#A99B8C] mt-1">
-                Real-time metrics for Khatti Cafe & Purnima Foods digital catalog.
+                Real-time metrics for {cafeInfo.name} & {cafeInfo.businessName} digital catalog.
               </p>
             </div>
 
@@ -670,6 +671,33 @@ export const AdminPage: React.FC = () => {
               </p>
             </div>
 
+            <div className="p-4 bg-[#241B16] border border-[#C6A15B]/30 rounded-sm max-w-3xl space-y-3">
+              <span className="text-xs uppercase font-bold text-[#D8BC82] tracking-wider block">
+                ⚡ Quick Load Café Demo Preset:
+              </span>
+              <div className="flex flex-wrap gap-2">
+                {DEMO_CAFE_PRESETS.map((preset) => (
+                  <button
+                    key={preset.id}
+                    type="button"
+                    onClick={() => {
+                      setCafeFormData(preset.info);
+                      updateCafeInfo(preset.info);
+                      setCafeSavedNotice(true);
+                      setTimeout(() => setCafeSavedNotice(false), 2500);
+                    }}
+                    className={`px-3 py-1.5 rounded text-xs font-semibold transition-all ${
+                      cafeFormData.name === preset.name
+                        ? 'bg-[#C6A15B] text-[#17120F]'
+                        : 'bg-[#17120F] text-[#F8F3EC] border border-white/10 hover:border-[#C6A15B]'
+                    }`}
+                  >
+                    {preset.name}
+                  </button>
+                ))}
+              </div>
+            </div>
+
             <form
               onSubmit={handleSaveCafeInfo}
               className="bg-[#17120F] border border-[#C6A15B]/20 rounded-sm p-6 sm:p-8 max-w-3xl space-y-5 shadow-xl"
@@ -677,7 +705,7 @@ export const AdminPage: React.FC = () => {
               {cafeSavedNotice && (
                 <div className="p-3 bg-emerald-950/80 border border-emerald-500/40 rounded text-xs text-emerald-300 flex items-center gap-2">
                   <CheckCircle className="w-4 h-4" />
-                  <span>Café information saved to localStorage successfully!</span>
+                  <span>Café information updated & saved successfully!</span>
                 </div>
               )}
 

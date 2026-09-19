@@ -14,11 +14,13 @@ import { OwnerNoteSection } from '../components/sections/OwnerNoteSection';
 import { ScrollingMarquee } from '../components/common/ScrollingMarquee';
 import { ScrollReveal } from '../components/common/ScrollReveal';
 import { useGallery } from '../context/GalleryContext';
+import { useCafe } from '../context/CafeContext';
 import { ArrowRight, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export const Home: React.FC = () => {
   const { galleryImages } = useGallery();
+  const { cafeInfo } = useCafe();
 
   return (
     <PageContainer>
@@ -109,7 +111,7 @@ export const Home: React.FC = () => {
                   <span>Visual Atmosphere</span>
                 </div>
                 <h2 className="font-serif text-3xl sm:text-5xl font-bold text-[#F8F3EC]">
-                  Moments at Khatti
+                  Moments at {cafeInfo.name}
                 </h2>
               </div>
               <Link
