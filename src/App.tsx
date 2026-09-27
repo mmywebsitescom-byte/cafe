@@ -7,6 +7,8 @@ import { GalleryProvider } from './context/GalleryContext';
 import { FavoritesProvider } from './context/FavoritesContext';
 import { ScrollToTop } from './components/common/ScrollToTop';
 import { ErrorBoundary } from './components/common/ErrorBoundary';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 
 // Pages
 import { Home } from './pages/Home';
@@ -54,6 +56,8 @@ export default function App() {
           </ReviewProvider>
         </MenuProvider>
       </CafeProvider>
+      <Analytics />
+      <SpeedInsights />
     </ErrorBoundary>
   );
 }
